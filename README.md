@@ -5,6 +5,7 @@ This is a project of "Getting and Cleaning Data" on Coursera. The data set is UC
 In this repo, I included the following items:
 
 * README.md: this document you are reading right now, describing the profile of this repo
+* CodeBook.md: a document explaining how the script works step-by-step (with code snippet)
 * getdata-projectfiles-UCI HAR Dataset.zip: a compressed zip file of the data set
 * UCI HAR Dataset: data set provided by this course
 * run_analysis.R: the main script for all the procedures cleaning the data set
@@ -14,6 +15,8 @@ The main tasks of the script, run_analysis.R, are:
 
 1. Take in the separated training and testing files in the provided data set and merge them into one data set.
 2. Label the activity with names in strings instead of encoded numbers
-3. Generate two more tidy data sets:
+3. Generate two more tidy data sets (both in fixed-width format):
 	* data_subject.txt: Means of all variables grouped by subjects
 	* data_activity.txt: Means of all variables grouped by activities
+	
+The detailed explanation of the script will be discussed in CodeBook.md.
