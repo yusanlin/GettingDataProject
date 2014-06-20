@@ -11,7 +11,7 @@ Note that for this project, we have 5 tasks to complete, which are also the step
 
 In the following I'll explain each steps in detail.
 
-## 1. Merges the training and the test sets to create one data set
+### 1. Merges the training and the test sets to create one data set
 In order to handle the data, the first thing to do must be reading in the data sets. Therefore, I used:
 
 ```
@@ -23,4 +23,19 @@ y_test <- as.matrix(read.table("UCI HAR Dataset/test/y_test.txt"))
 
 subject_train <- as.matrix(read.table("UCI HAR Dataset/train/subject_train.txt"))
 subject_test <- as.matrix(read.table("UCI HAR Dataset/test/subject_test.txt"))
+```
+Note that the read in tables are converted to matrix to avoid the values read in as types other than numeric (we only want numeric in this case.)
+
+And the merging steps are done with the help of a combination of `cbind` and `rbind`:
+
+```
+merge_train <- cbind(subject_train, y_train, X_train)
+merge_test <- cbind(subject_test, y_test, X_test)
+data <- rbind(merge_train, merge_test)
+```
+
+After the merging, don't forget to transform the matrices back to data.frame in order for the later operations:
+
+```
+data <- data.frame(data)
 ```
