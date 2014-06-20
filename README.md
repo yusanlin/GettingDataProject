@@ -15,5 +15,5 @@ The main tasks of the script, run_analysis.R, are:
 1. Take in the separated training and testing files in the provided data set and merge them into one data set.
 2. Label the activity with names in strings instead of encoded numbers
 3. Generate two more tidy data sets:
-	* Means of all variables grouped by subjects
-	* Means of all variables grouped by activities
+	* data_subject.txt: Means of all variables grouped by subjects
+	* data_activity.txt: Means of all variables grouped by activities
