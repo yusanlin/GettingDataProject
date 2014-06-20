@@ -2,19 +2,22 @@
 # 1. Merges the training and the test sets to create one data set.
 # ------------------------------------------------------------------------------------------
 # read in both files
-X_train <- read.table("UCI HAR Dataset/train/X_train.txt")
-y_train <- read.table("UCI HAR Dataset/train/y_train.txt")
+X_train <- as.matrix(read.table("UCI HAR Dataset/train/X_train.txt"))
+y_train <- as.matrix(read.table("UCI HAR Dataset/train/y_train.txt"))
 
-X_test <- read.table("UCI HAR Dataset/test/X_test.txt")
-y_test <- read.table("UCI HAR Dataset/test/y_test.txt")
+X_test <- as.matrix(read.table("UCI HAR Dataset/test/X_test.txt"))
+y_test <- as.matrix(read.table("UCI HAR Dataset/test/y_test.txt"))
 
-subject_train <- read.table("UCI HAR Dataset/train/subject_train.txt")
-subject_test <- read.table("UCI HAR Dataset/test/subject_test.txt")
+subject_train <- as.matrix(read.table("UCI HAR Dataset/train/subject_train.txt"))
+subject_test <- as.matrix(read.table("UCI HAR Dataset/test/subject_test.txt"))
 
 # merge train and test
 merge_train <- cbind(subject_train, y_train, X_train)
 merge_test <- cbind(subject_test, y_test, X_test)
 data <- rbind(merge_train, merge_test)
+
+# transform back to data.frame
+data <- data.frame(data)
 
 # ------------------------------------------------------------------------------------------
 # 2. Extracts only the measurements on the mean and standard deviation for each measurement.
@@ -29,23 +32,23 @@ apply(data, 2, sd)
 # 3. Uses descriptive activity names to name the activities in the data set
 # ------------------------------------------------------------------------------------------
 for (i in 1:nrow(data)) {
-  if(data[i, 562] == 1){
-    data[i, 562] <- "WALKING"
+  if(data[i, 2] == 1){
+    data[i, 2] <- "WALKING"
   }
-  else if(data[i, 562] == 2){
-    data[i, 562] <- "WALKING_UPSTAIRS"
+  else if(data[i, 2] == 2){
+    data[i, 2] <- "WALKING_UPSTAIRS"
   }
-  else if(data[i, 562] == 3){
-    data[i, 562] <- "WALKING_DOWNSTAIRS"
+  else if(data[i, 2] == 3){
+    data[i, 2] <- "WALKING_DOWNSTAIRS"
   }
-  else if(data[i, 562] == 4){
-    data[i, 562] <- "SITTING"
+  else if(data[i, 2] == 4){
+    data[i, 2] <- "SITTING"
   }
-  else if(data[i, 562] == 5){
-    data[i, 562] <- "STANDING"
+  else if(data[i, 2] == 5){
+    data[i, 2] <- "STANDING"
   }
-  else if(data[i, 562] == 6){
-    data[i, 562] <- "LAYING"
+  else if(data[i, 2] == 6){
+    data[i, 2] <- "LAYING"
   }
 }
 
@@ -78,3 +81,8 @@ for (i in 4:ncol(data)){
 DT1 <- data.frame(DT1)
 names(DT1) <- names_file[,2]
 data_activity <- DT1
+
+# write out the two new tidy data set to files
+library(gdata)
+write.fwf(data_subject, "data_subject.txt", rownames = TRUE)
+write.fwf(data_activity, "data_activity.txt", rownames = TRUE)
